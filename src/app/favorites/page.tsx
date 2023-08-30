@@ -1,15 +1,11 @@
-import { CloudinaryImage } from "./cloudinary-image";
-import UploadButton from "./upload-button";
+import { CloudinaryImage } from "../gallery/cloudinary-image";
 import cloudinary from "cloudinary";
+import { SearchResult } from "../gallery/page";
+import ForceRefresh from "@/components/force-refresh";
 
-export interface SearchResult {
-  public_id: string;
-  tags: string[];
-}
-
-const GalleryPage = async () => {
+const FavoritesPage = async () => {
   const results = (await cloudinary.v2.search
-    .expression("resource_type:image")
+    .expression("resource_type:image AND tags=favorite")
     .sort_by("created_at", "desc")
     .with_field("tags")
     .max_results(30)
@@ -19,17 +15,17 @@ const GalleryPage = async () => {
 
   return (
     <section>
-      <div className=" flex flex-col gap-8">
-        <div className="flex justify-between ">
-          <h1 className="text-4xl font-bold"> Gallery</h1>
-          <UploadButton />
+      <ForceRefresh />
+      <div className=" flex flex-col  gap-8">
+        <div className="flex justify-betwe en ">
+          <h1 className="text-4xl font-bold">Favorite Images </h1>
         </div>
         <div className="grid grid-cols-4 gap-4">
           {results.resources.map((result) => (
-            <CloudinaryImage
-            path="/gallery"
+            <CloudinaryImage 
+            path="/favorites"
               key={result.public_id}
-              imageData= {result}
+              imageData={result}
               width="400"
               height="300"
               alt="an image of something"
@@ -41,4 +37,4 @@ const GalleryPage = async () => {
   );
 };
 
-export default GalleryPage;
+export default FavoritesPage;
