@@ -2,9 +2,9 @@
 
 import ImageGrid from "@/components/image-grid";
 import { CloudinaryImage } from "../../components/cloudinary-image";
-import { SearchResult } from "./page";
+import { SearchResult } from "../gallery/page";
 
-const GalleryGrid = ({ images }: { images: SearchResult[] }) => {
+const AlbumGrid = ({ images }: { images: SearchResult[] }) => {
   return (
     <ImageGrid
       images={images}
@@ -23,5 +23,5 @@ const GalleryGrid = ({ images }: { images: SearchResult[] }) => {
   );
 };
 
-export default GalleryGrid
+export default AlbumGrid
  ;

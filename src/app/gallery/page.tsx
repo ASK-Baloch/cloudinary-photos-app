@@ -1,5 +1,4 @@
-import ImageGrid from "@/components/image-grid";
-import { CloudinaryImage } from "../../components/cloudinary-image";
+
 import UploadButton from "./upload-button";
 import cloudinary from "cloudinary";
 import GalleryGrid from "./gallery-grid";
