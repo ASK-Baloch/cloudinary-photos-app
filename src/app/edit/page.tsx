@@ -1,7 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@radix-ui/react-dropdown-menu";
 import { CldImage } from "next-cloudinary";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const EditPage = ({
@@ -14,6 +17,9 @@ const EditPage = ({
   const [transformation, setTransformation] = useState<
     undefined | "generative-fill" | "blur" | "gray" | "pixelate" | "background"
   >();
+  const [pendingPrompt ,setpendingPrompt ] = useState("")
+  const [prompt ,setPromt ] = useState("")
+  const router = useRouter();
 
   return (
     <section>
@@ -22,13 +28,20 @@ const EditPage = ({
           <h1 className="text-4xl font-bold">Edit {publicId}</h1>
         </div>
         <div className="flex gap-4">
-          <Button
-            onClick={() => {
-              setTransformation("generative-fill");
-            }}
-          >
-            Apply Generative fill
-          </Button>
+          <div className="flex flex-col gap-4 ">
+            <Button
+              onClick={() => {
+                setTransformation("generative-fill");
+                setPromt(pendingPrompt)
+                router.refresh();
+              }}
+            >
+              Apply Generative fill
+            </Button>
+            <Label>Prompt</Label>
+            <Input value={pendingPrompt} onChange={(e) => setpendingPrompt(e.currentTarget.value)} 
+            placeholder="Enter what you want to add"  className="outline"/>
+          </div>
           <Button
             onClick={() => {
               setTransformation("blur");
@@ -77,11 +90,12 @@ const EditPage = ({
           {transformation === "generative-fill" && (
             <CldImage
               src={publicId}
-              width="900"
-              height="600" // Original 1440
+              width="1600"
+              height="1200" // Original 1440
               crop="pad" // Returns the given size with padding
-              fillBackground
+              fillBackground={{ prompt }}
               alt="image of something"
+              
             />
           )}
           {transformation === "blur" && (

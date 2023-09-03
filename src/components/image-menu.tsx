@@ -13,8 +13,8 @@ import { useState } from "react";
 import Link from "next/link";
 
 export function ImageMenu({ image }: { image: SearchResult }) {
-  const [open ,setOpen ] = useState(false)
-   
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="  absolute top-2 right-2 ">
       <DropdownMenu open={open} onOpenChange={setOpen}>
@@ -25,16 +25,20 @@ export function ImageMenu({ image }: { image: SearchResult }) {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-40">
           <DropdownMenuItem asChild>
-            <AddToAlbumDialog image={image} onClose={()=> setOpen(false)}/>
+            <AddToAlbumDialog image={image} onClose={() => setOpen(false)} />
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href={`/edit?publicId=${encodeURIComponent(image.public_id)}`}>
-              <PenSquare  className=" mr-2 h-4 w-4"/>
-              Edit
+            <Button asChild variant="ghost" className=" cursor-pointer flex justify-start pl-4" >
+              <Link 
+                href={`/edit?publicId=${encodeURIComponent(image.public_id)}`}
+              >
+                <PenSquare className=" mr-2 h-4 w-4" />
+                Edit
               </Link>
+            </Button>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-    </div> 
-  ); 
+    </div>
+  );
 }
