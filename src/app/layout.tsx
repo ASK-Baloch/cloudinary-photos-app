@@ -6,13 +6,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Heart } from "@/components/ui/icons/heart";
 import Link from "next/link";
-import cloudinary from "cloudinary"
+import cloudinary from "cloudinary";
 import { Folder } from "./albums/page";
 import Image from "next/image";
-
+import Socials from "./socials/page";
 
 const inter = Inter({ subsets: ["latin"] });
-const roboto  = Roboto_Slab({subsets:["latin"]})
+const roboto = Roboto_Slab({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "SIDHU's APP",
@@ -54,7 +54,11 @@ async function SideMenu() {
                 Gallery
               </Link>
             </Button>
-            <Button asChild variant="ghost" className="w-full justify-start flex gap-2">
+            <Button
+              asChild
+              variant="ghost"
+              className="w-full justify-start flex gap-2"
+            >
               <Link href="/albums">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -73,11 +77,18 @@ async function SideMenu() {
                 Albums
               </Link>
             </Button>
-            {folders.map((folder) => <Button asChild variant="ghost" key={folder.name} className="w-fullflex justify-start">
-              <Link className="ml-5" href={`/albums/${folder.path}`}>
-                {folder.name}
-              </Link>
-            </Button>)}
+            {folders.map((folder) => (
+              <Button
+                asChild
+                variant="ghost"
+                key={folder.name}
+                className="w-fullflex justify-start"
+              >
+                <Link className="ml-5" href={`/albums/${folder.path}`}>
+                  {folder.name}
+                </Link>
+              </Button>
+            ))}
             <Button
               asChild
               variant="ghost"
@@ -104,9 +115,17 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={inter.className}>
         <div className="border-b">
-          <div className={`${roboto.className} flex h-16 items-center px-4  container mx-auto gap-2`}>
-            <Image src="/playstore.png" height="50" width="50" alt="logo of sidhu" className="  rounded-3xl"/>
-           SIDHU PHOTOS
+          <div
+            className={`${roboto.className} flex h-16 items-center px-4  container mx-auto gap-2`}
+          >
+            <Image
+              src="/playstore.png"
+              height="50"
+              width="50"
+              alt="logo of sidhu"
+              className="  rounded-3xl"
+            />
+            SIDHU PHOTOS
             {/* <TeamSwitcher />
             <MainNav className="mx-6" /> */}
             <div className="ml-auto flex items-center space-x-4">
@@ -121,8 +140,14 @@ export default function RootLayout({
         </div>
         <div className="flex">
           <SideMenu />
-          <div className="w-full px-4 pt-12">{children}</div>
+          <div className="w-full px-4 pt-12">
+            {children}
+            <h3 className="flex items-end justify-end text-3xl">
+              R.I.P Sidhu MooseWala
+            </h3>
+          </div>
         </div>
+        <Socials />
       </body>
     </html>
   );

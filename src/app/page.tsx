@@ -1,47 +1,39 @@
 "use client";
 
-import { CldUploadButton  } from "next-cloudinary";
-import { CldImage } from "next-cloudinary";
-import { useState } from "react";
+import ReactPlayer from "react-player";
+import React from "react";
+
+import { CldVideoPlayer } from "next-cloudinary";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export interface UploadResult {
- info:{
-  asset_id:string,
-  public_id:string,
-  format: string,
-  url: string,
-
- },
- event:"success"
+  info: {
+    asset_id: string;
+    public_id: string;
+    format: string;
+    url: string;
+  };
+  event: "success";
 }
 
-
-
 export default function Home() {
-  const [ imageId , setImageId] = useState("")
-  
-  // const handleUpload: CldUploadEventCallbackNoOptions = (result: UploadResult) => {
-  //   setImageId(result.info.public_id);
-  //   // Handle the upload result
-  // };
-  
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <CldUploadButton uploadPreset="t5abl3pi" 
-     onUpload={(result:UploadResult) => {
-      setImageId(result.info.public_id)
-     }}
+    <main className="flex  flex-col items-center justify-between  p-16">
+      <ReactPlayer
+        url="/videos/sidhu3.mp4"
+        controls
+        width="350px"
+        height="430px"
+        loop={true}
+        playing={true}
       />
-     { imageId && ( <CldImage
-        width="960"
-        height="600"
-        src={imageId}
-        sizes="100vw"
-        alt="Description of my image"
-        // tint="70:blue:green:purple"
-      //  blurFaces 
-      // cartoonify 
-      />)}
+      <Button
+        asChild
+        className="w-full flex gap-2 justify-center items-center mt-5"
+      >
+        <Link href="/gallery">Open Gallery to see pictures</Link>
+      </Button>
     </main>
   );
 }
